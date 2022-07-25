@@ -1,7 +1,7 @@
 package main
 
 const (
-	POOLING_INTERVAL_IN_MS             = 30000 // 30 secs
+	POLLING_INTERVAL_IN_MS             = 30000 // 30 secs
 	BROWSERSTACK_DOMAIN                = "https://api-cloud.browserstack.com"
 	APP_UPLOAD_ENDPOINT                = "/app-automate/xcuitest/v2/app"
 	TEST_SUITE_UPLOAD_ENDPOINT         = "/app-automate/xcuitest/v2/test-suite"

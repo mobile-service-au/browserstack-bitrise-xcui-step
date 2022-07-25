@@ -124,10 +124,10 @@ func checkBuildStatus(build_id string, username string, access_key string, waitF
 	}
 
 	// ticker can't have negative value
-	var POOLING_INTERVAL int = 1000
+	var POLLING_INTERVAL int = 1000
 
 	if waitForBuild {
-		POOLING_INTERVAL = POOLING_INTERVAL_IN_MS
+		POLLING_INTERVAL = POLLING_INTERVAL_IN_MS
 	}
 
 	build_parsed_response := make(map[string]interface{})
@@ -175,7 +175,7 @@ func checkBuildStatus(build_id string, username string, access_key string, waitF
 		log.Printf("Build is running (BrowserStack build id %s)", build_id)
 
 		build_status = build_parsed_response["status"].(string)
-	}, POOLING_INTERVAL, false)
+	}, POLLING_INTERVAL, false)
 
 	// infinite loop -> consider this as a ticker
 	for {
