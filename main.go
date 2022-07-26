@@ -32,7 +32,7 @@ func main() {
 		failf(RUNNER_APP_NOT_FOUND)
 	}
 
-	find_and_zip_file_err := locateTestRunnerFileAndZip(test_suite_path + TEST_RUNNER_RELATIVE_PATH_BITRISE)
+	find_and_zip_file_err := locateTestRunnerFileAndZip(test_suite_path)
 
 	if find_and_zip_file_err != nil {
 		failf(find_and_zip_file_err.Error())
