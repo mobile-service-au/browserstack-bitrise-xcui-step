@@ -29,7 +29,8 @@ Complete the following steps:
 ​
 4. Add your BrowserStack Username and Access Key in the **Authentication** step input.
 ​
-5. For **App & Test Suite** step inputs, the **Xcode Archive & Export for iOS** and **Xcode Build for testing for iOS** steps export an APK and a test APK, respectively. Thus, their paths get automatically set in the APK path and Test APK path input fields. <br /><br />If you are not using  **Xcode Archive & Export for iOS** and **Xcode Build for testing for iOS** steps, make sure the **App path** input points to the path of your app and test suite files. In the case of the runner app, it should be in `<any_path>/Debug-iphoneos` directory if the user is providing an absolute path.
+5. For iOS app input, the **BITRISE_IPA_PATH** output from the **Xcode Archive & Export for iOS** step exports the IPA file. <br /><br /> For XCUI test suite input, the **BITRISE_TEST_BUNDLE_PATH** output from the **Xcode Build for testing for iOS step** exports the test suite. <br />
+Thus, their paths get automatically set in the iOS app and XCUI test suite input fields. <br /><br />If you are not using  **Xcode Archive & Export for iOS** and **Xcode Build for testing for iOS** steps, ensure that the **iOS app under test** input points to the path of your app (`.ipa` file). Also, ensure that the **XCUI test suite** input points to the test suite runner file. In the case of the runner app, it should be in the `<any_path>/Debug-iphoneos` directory if the user is providing an absolute path.
 ​
 6. Add one or more devices in the **Devices** step input.
 ​
