@@ -44,22 +44,22 @@ Complete the following steps:
 
 | Key | Description | Flags | Default |
 | --- | --- | --- | --- |
-| `iOS app` | Set the path of the app (.ipa) file. | required | `$BITRISE_IPA_PATH` |
-| `XCUI test suite` | Set the path of the output bundle file. | required | `$BITRISE_TEST_BUNDLE_PATH` |
-| `Devices` | Provide one or more device-OS combination in a new line. For example: <br /> `iPhone 11-13` <br />`iPhone XS-15` | required | N/A |
-| `Instrumentation logs` | Generate instrumentation logs of the test session  |  | `true` |
-| `Network logs` | Generate network logs of your test sessions to capture network traffic, latency, etc. |  | `false` |
-| `Device Logs` | Generate device logs |  | `false` |
-| `Capture screenshots` | Capture the screenshots of the test execution|  | `false` |
-| `Video recording` | Record video of the test execution  |  | `true` |
-| `Project name` | Project name of the tests |  |  |
-| `Notify project status` | A callback URL to enable BrowserStack notify about completion of build under a given project.   |  |  |
-| `Local testing` | Enable local testing to retrieve app data hosted on local/private servers  |  | `false` |
-| `Test sharding` | Enable test sharding to split tests cases into different groups instead of running them sequentially. <br />Add the sharding value json here. Examples: **Input for only-testing strategy:**: <br /> ```{"numberOfShards": 2, "mapping": [{"name": "Shard 1", "strategy": "only-testing", "values": ["SampleXCUITestsClass/testAlert", "SampleXCUITestsClass/testText"]}, {"name": "Shard 2", "strategy": "only-testing", "values": ["SampleXCUITestsClass/testLogin"]}]}```  **Input for skip-testing strategy:**: ```{"numberOfShards": 2, "mapping": [{"name": "Shard 1", "strategy": "skip-testing", "values": ["SampleXCUITestsClass/testAlert"]}, {"name": "Shard 2", "strategy": "skip-testing", "values": ["SampleXCUITestsClass/testText"]}]}```|  |  |
-| `Filter test cases` | Provide comma-separated list of classes followed by the supported filtering strategy name `only-testing` and `skip-testing`.  <br /> Examples: **For only-testing filtering strategy**: `only-testing SampleXCUITestsClass/testAlert, only-testing SampleXCUITestsClass/testText` <br /> **For skip-testing filtering strategy**: `skip-testing SampleXCUITestsClass/testAlert, skip-testing SampleXCUITestsClass/testText`  |  |  |
-| `Run dynamic tests` | Enable to run runtime discoverable tests or dynamic tests  |  | `false`  |
-| `Wait for build results` | Let pipeline wait for BrowserStack to complete the execution and get the test results  |  | `true` |
-| `Test capabilities` | Enter capabilities in a key-value pair format on a new line. <br /><br />**For example**: <br />`coverage=true` <br />`geoLocation=CN"` |  |  |
+| `iOS app` | Set the path of the app (.ipa) file. | Required | N/A |
+| `XCUI test suite` | Set the path of the output bundle file. | Required | N/A |
+| `Devices` | Provide one or more device-OS combination in a new line. For example: <br /> `iPhone 11-13` <br />`iPhone XS-15` | Required | N/A |
+| `Instrumentation logs` | Generate instrumentation logs of the test session  | Optional | `true` |
+| `Network logs` | Generate network logs of your test sessions to capture network traffic, latency, etc. | Optional | `false` |
+| `Device Logs` | Generate device logs | Optional | `false` |
+| `Capture screenshots` | Capture the screenshots of the test execution| Optional | `false` |
+| `Video recording` | Record video of the test execution  | Optional | `true` |
+| `Project name` | Project name of the tests | Optional | N/A |
+| `Notify project status` | A callback URL to enable BrowserStack notify about completion of build under a given project.   | Optional | N/A  |
+| `Local testing` | Enable local testing to retrieve app data hosted on local/private servers  |  Optional | `false` |
+| `Test sharding` | Enable test sharding to split tests cases into different groups instead of running them sequentially. <br />Add the sharding value json here. Examples: **Input for only-testing strategy:**: <br /> ```{"numberOfShards": 2, "mapping": [{"name": "Shard 1", "strategy": "only-testing", "values": ["SampleXCUITestsClass/testAlert", "SampleXCUITestsClass/testText"]}, {"name": "Shard 2", "strategy": "only-testing", "values": ["SampleXCUITestsClass/testLogin"]}]}```  **Input for skip-testing strategy:**: ```{"numberOfShards": 2, "mapping": [{"name": "Shard 1", "strategy": "skip-testing", "values": ["SampleXCUITestsClass/testAlert"]}, {"name": "Shard 2", "strategy": "skip-testing", "values": ["SampleXCUITestsClass/testText"]}]}```|  Optional | N/A |
+| `Filter test cases` | Provide comma-separated list of classes followed by the supported filtering strategy name `only-testing` and `skip-testing`.  <br /> Examples: **For only-testing filtering strategy**: `only-testing SampleXCUITestsClass/testAlert, only-testing SampleXCUITestsClass/testText` <br /> **For skip-testing filtering strategy**: `skip-testing SampleXCUITestsClass/testAlert, skip-testing SampleXCUITestsClass/testText`  | Optional | N/A |
+| `Run dynamic tests` | Enable to run runtime discoverable tests or dynamic tests  | Optional | `false`  |
+| `Wait for build results` | Let pipeline wait for BrowserStack to complete the execution and get the test results  | Optional | `true` |
+| `Test capabilities` | Enter capabilities in a key-value pair format on a new line. <br /><br />**For example**: <br />`coverage=true` <br />`geoLocation=CN"` | Optional | N/A |
 
 </details>
 
