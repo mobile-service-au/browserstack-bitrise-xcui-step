@@ -17,9 +17,7 @@ Run your XCUI tests on BrowserStack App Automate. This step collects the built I
 
 ## Configure the Step
 
-Before configuring this step, make sure you install [Bitrise CLI](https://github.com/bitrise-io/bitrise) on your machine.
-
-Complete the following steps:
+Complete the following steps to configure BrowserStack's XCUI step in Bitrise:
 
 1. Open the Workflow you want to use in the Workflow Editor.
 ​
