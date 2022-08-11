@@ -83,25 +83,25 @@ inputs:
   # IPA's
   - app_ipa_path: $BITRISE_IPA_PATH
     opts:
-      title: 'IOS app under test'
+      title: 'iOS app under test'
       summary: 'Path to the app (.ipa) file'
       is_expand: true
       is_required: true
       description: 'Path of the app (.ipa) file'
-  - xcui_test_suite: $BITRISE_TEST_BUNDLE_PATH
+  - xcui_test_suite:
     opts:
-      title: 'Xcui test suite'
+      title: 'XCUI test suite'
       summary: 'Path of the output bundle file'
       is_expand: true
       is_required: true
-      description: 'Path of the output bundle file. Add the $BITRISE_TEST_BUNDLE_PATH from Xcode Build for testing for iOS step or the absolute path of <AppnameUITests>-Runner.app'
+      description: 'Path of the output bundle (.app) file. Add either the $BITRISE_TEST_BUNDLE_PATH (generated from the "Xcode Build for testing for iOS" step) or the absolute path of the output bundle file'
+      category: 'App & Test Suite'
 
   # Devices
   - devices_list:
     opts:
       title: 'Devices'
-      summary: |
-        Name of one or more device-OS combination in new line from the [device list](https://www.browserstack.com/list-of-browsers-and-platforms/app_automate).
+      summary: "Name of one or more device-OS combination in new line from the [device list](https://www.browserstack.com/list-of-browsers-and-platforms/app_automate)."
       description: |
         Name of one or more device-OS combination in new line 
          For example:
@@ -109,6 +109,8 @@ inputs:
          `iPhone 11-13`
          
          `iPhone XS-15`
+         
+         [View supported device-OS combinations](https://www.browserstack.com/list-of-browsers-and-platforms/app_automate)
       is_expand: true
       is_required: true
 
@@ -202,7 +204,7 @@ inputs:
       title: 'Filter test cases'
       summary: "Provide a comma-separated list of class or test names followed by supported filtering strategies."
       description: |
-        Provide key-value pairs of filters to run tests: only-testing, skip-testing
+        Provide a comma-separated list of class or test names followed by supported filters: "only-testing" and "skip-testing".
 
         For example: `only-testing SampleXCUITestsClass/testAlertTest`
 
@@ -210,9 +212,9 @@ inputs:
       category: 'Test Configuration'
   - use_dynamic_tests: false
     opts:
-      title: 'Enable to run dynamic tests'
-      summary: 'Enable to run runtime discoverable tests or dynamic tests.'
-      description: 'Set the dynamicTests parameter to true and specify the fully-qualified test names in the only-testing parameter when running an XCUI test. [Learn more.](https://www.browserstack.com/docs/app-automate/xcuitest/dynamic-tests)'
+      title: 'Run dynamic tests'
+      summary: 'Enable to run runtime discoverable tests or dynamic tests. [Learn more](https://www.browserstack.com/docs/app-automate/xcuitest/dynamic-tests)'
+      description: 'Enable to run runtime discoverable tests or dynamic tests. [Learn more](https://www.browserstack.com/docs/app-automate/xcuitest/dynamic-tests)'
       value_options:
         - true
         - false
@@ -220,8 +222,8 @@ inputs:
   - check_build_status: true
     opts:
       title: 'Build Status'
-      description: 'Wait for build results'
-      summary: 'Wait for BrowserStack to complete the execution and get the test results'
+      description: 'Enable to let the pipeline wait for build results '
+      summary: 'Enable to let the pipeline wait for build results '
       value_options:
         - true
         - false
