@@ -72,7 +72,6 @@ inputs:
       is_required: true
       is_sensitive: true
       description: 'Username of the BrowserStack account'
-      # category: 'Authentication'
   - browserstack_accesskey:
     opts:
       title: 'BrowserStack accesskey'
@@ -80,7 +79,6 @@ inputs:
       is_required: true
       is_sensitive: true
       description: 'Access Key of the BrowserStack account'
-      # category: 'Authentication'
 
   # IPA's
   - app_ipa_path: $BITRISE_IPA_PATH
