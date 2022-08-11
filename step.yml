@@ -72,7 +72,7 @@ inputs:
       is_required: true
       is_sensitive: true
       description: 'Username of the BrowserStack account'
-      category: 'Authentication'
+      # category: 'Authentication'
   - browserstack_accesskey:
     opts:
       title: 'BrowserStack accesskey'
@@ -80,7 +80,7 @@ inputs:
       is_required: true
       is_sensitive: true
       description: 'Access Key of the BrowserStack account'
-      category: 'Authentication'
+      # category: 'Authentication'
 
   # IPA's
   - app_ipa_path:
@@ -90,7 +90,7 @@ inputs:
       is_expand: true
       is_required: true
       description: 'Path of the app (.ipa) file'
-      category: 'App & Test Suite'
+      # category: 'App & Test Suite'
   - xcui_test_suite:
     opts:
       title: 'Xcui test suite'
@@ -98,14 +98,14 @@ inputs:
       is_expand: true
       is_required: true
       description: 'Path of the output bundle file. Add the $BITRISE_TEST_BUNDLE_PATH from Xcode Build for testing for iOS step or the absolute path of <AppnameUITests>-Runner.app'
-      category: 'App & Test Suite'
+      # category: 'App & Test Suite'
 
   # Devices
   - devices_list:
     opts:
       title: 'Devices'
       summary: |
-        Devices
+        Name of one or more device-OS combination in new line from the [device list](https://www.browserstack.com/list-of-browsers-and-platforms/app_automate).
       description: |
         Name of one or more device-OS combination in new line 
          For example:
@@ -115,7 +115,7 @@ inputs:
          `iPhone XS-15`
       is_expand: true
       is_required: true
-      category: 'Devices'
+      # category: 'Devices'
 
   # Debug logs inputs
   - instrumentation_logs: true
