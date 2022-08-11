@@ -83,22 +83,20 @@ inputs:
       # category: 'Authentication'
 
   # IPA's
-  - app_ipa_path:
+  - app_ipa_path: $BITRISE_IPA_PATH
     opts:
       title: 'IOS app under test'
       summary: 'Path to the app (.ipa) file'
       is_expand: true
       is_required: true
       description: 'Path of the app (.ipa) file'
-      # category: 'App & Test Suite'
-  - xcui_test_suite:
+  - xcui_test_suite: $BITRISE_TEST_BUNDLE_PATH
     opts:
       title: 'Xcui test suite'
       summary: 'Path of the output bundle file'
       is_expand: true
       is_required: true
       description: 'Path of the output bundle file. Add the $BITRISE_TEST_BUNDLE_PATH from Xcode Build for testing for iOS step or the absolute path of <AppnameUITests>-Runner.app'
-      # category: 'App & Test Suite'
 
   # Devices
   - devices_list:
@@ -115,7 +113,6 @@ inputs:
          `iPhone XS-15`
       is_expand: true
       is_required: true
-      # category: 'Devices'
 
   # Debug logs inputs
   - instrumentation_logs: true
@@ -205,16 +202,7 @@ inputs:
   - filter_test:
     opts:
       title: 'Filter test cases'
-      summary: |
-        Key-value pairs of filters to run tests from supported test filtering strategies: only-testing, skip-testing
-        Examples: 
-        For only-testing filtering strategy:
-
-        `only-testing SampleXCUITestsClass/testAlertTestA`, `only-testing SampleXCUITestsClass/testAlertTestB`
-
-        For skip-testing filtering strategy:
-
-        `skip-testing SampleXCUITestsClass/testAlertTestA`, `skip-testing SampleXCUITestsClass/testAlertTestB`
+      summary: "Provide a comma-separated list of class or test names followed by supported filtering strategies."
       description: |
         Provide key-value pairs of filters to run tests: only-testing, skip-testing
 
