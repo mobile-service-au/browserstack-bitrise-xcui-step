@@ -5,9 +5,11 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io/fs"
 	"log"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"strconv"
 	"strings"
 	"time"
@@ -251,6 +253,23 @@ func printBuildStatus(build_details map[string]interface{}) {
 	table.Render()
 }
 
+// find all the files from the directory which matches the pattern eg: *.md
+func WalkMatch(root, ext string) []string {
+	var files_found []string
+	filepath.WalkDir(root, func(path string, d fs.DirEntry, e error) error {
+		if e != nil {
+			return e
+		}
+		if matched, err := filepath.Match(ext, filepath.Base(path)); err != nil {
+			return err
+		} else if matched {
+			files_found = append(files_found, path)
+		}
+		return nil
+	})
+	return files_found
+}
+
 func locateTestRunnerFileAndZip(test_suite_location string) error {
 	split_test_suite_path := strings.Split(test_suite_location, "/")
 	get_file_name := split_test_suite_path[len(split_test_suite_path)-1]
@@ -266,10 +285,17 @@ func locateTestRunnerFileAndZip(test_suite_location string) error {
 		test_runner_app_path = test_suite_location
 	} else if strings.Contains(get_file_name, "test_bundle") {
 		// if test_suite_location is a directory instead of the file, then check if runner app exits
+
 		if _, err := os.Stat(test_suite_location + TEST_RUNNER_RELATIVE_PATH_BITRISE); errors.Is(err, os.ErrNotExist) {
 			return errors.New(RUNNER_APP_NOT_FOUND)
 		} else {
-			test_runner_app_path = test_suite_location + TEST_RUNNER_RELATIVE_PATH_BITRISE
+			files := WalkMatch(test_suite_location+"/Debug-iphoneos/", "*-Runner.app")
+
+			if len(files) < 1 {
+				return errors.New(RUNNER_APP_NOT_FOUND)
+			}
+
+			test_runner_app_path = files[len(files)-1]
 		}
 	} else {
 		return errors.New(RUNNER_APP_NOT_FOUND)
