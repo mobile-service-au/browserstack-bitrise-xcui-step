@@ -285,12 +285,11 @@ func locateTestRunnerFileAndZip(test_suite_location string) error {
 		test_runner_app_path = test_suite_location
 	} else if strings.Contains(get_file_name, "test_bundle") {
 		// if test_suite_location is a directory instead of the file, then check if runner app exits
-		files := WalkMatch(test_suite_location+"/Debug-iphoneos/", "*-Runner.app")
-
-		if len(files) < 1 {
+		if _, err := os.Stat(test_suite_location + TEST_RUNNER_RELATIVE_PATH_BITRISE); errors.Is(err, os.ErrNotExist) {
 			return errors.New(RUNNER_APP_NOT_FOUND)
+		} else {
+			test_runner_app_path = test_suite_location + TEST_RUNNER_RELATIVE_PATH_BITRISE
 		}
-		test_runner_app_path = files[len(files)-1]
 	} else {
 		return errors.New(RUNNER_APP_NOT_FOUND)
 	}
