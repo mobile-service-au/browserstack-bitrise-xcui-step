@@ -280,7 +280,7 @@ func locateTestRunnerFileAndZip(test_suite_location string) error {
 
 	// Checking 2 conditions here
 	// 1. test_suite_location - is this runner app
-	// 2. test_suite_location - if this is a directory, does runner app exists in this directory.
+	// 2. test_suite_location - if this is a directory, does any runner app exists in this directory.
 	if len(check_file_extension) > 0 && check_file_extension[len(check_file_extension)-1] == "app" {
 		test_runner_app_path = test_suite_location
 	} else if strings.Contains(get_file_name, "test_bundle") {
