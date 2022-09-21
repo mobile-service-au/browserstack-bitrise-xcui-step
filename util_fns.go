@@ -295,12 +295,15 @@ func locateTestRunnerFileAndZip(test_suite_location string) error {
 		return errors.New(RUNNER_APP_NOT_FOUND)
 	}
 
+	file_path := strings.Split(test_runner_app_path, "/")
+	test_runner_file_name := file_path[len(file_path)-1]
+
 	_, err := exec.Command("cp", "-r", test_runner_app_path, ".").Output()
 	if err != nil {
 		return errors.New(fmt.Sprintf(FILE_ZIP_ERROR, err))
 	}
 
-	_, zipping_err := exec.Command("zip", "-r", "-D", TEST_RUNNER_ZIP_FILE_NAME, "Tests iOS-Runner.app").Output()
+	_, zipping_err := exec.Command("zip", "-r", "-D", TEST_RUNNER_ZIP_FILE_NAME, test_runner_file_name).Output()
 	if zipping_err != nil {
 		return errors.New(fmt.Sprintf(FILE_ZIP_ERROR, zipping_err))
 	}
