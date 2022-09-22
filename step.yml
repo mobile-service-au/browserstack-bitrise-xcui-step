@@ -12,7 +12,7 @@ title: |-
 summary: |
   Run your XCUITest tests on BrowserStack App Automate
 description: |
-  Run your XCUITest tests on BrowserStack App Automate. This step collects the built IPA from $BITRISE_IPA_PATH  and test suite from `$BITRISE_BUNDLE_PATH` Environment Variables
+  Run your XCUITest tests on BrowserStack App Automate. This step collects the built IPA from `$BITRISE_IPA_PATH`  and test suite from `$BITRISE_BUNDLE_PATH` Environment Variables
 website: https://github.com/browserstack/browserstack-bitrise-xcui-step
 source_code_url: https://github.com/browserstack/browserstack-bitrise-xcui-step
 support_url: https://github.com/browserstack/browserstack-bitrise-xcui-step/issues
@@ -86,7 +86,7 @@ inputs:
       is_expand: true
       is_required: true
       description: 'Path of the app (.ipa) file'
-  - xcui_test_suite: $BITRISE_TEST_BUNDLE_PATH
+  - xcui_test_suite: `$BITRISE_TEST_BUNDLE_PATH`
     opts:
       title: 'XCUI test suite'
       summary: 'Path of the output bundle file'
@@ -191,10 +191,10 @@ inputs:
         Enable test sharding to split tests cases into different groups instead of running them sequentially.
         Add the sharding value json here. Examples:
         Input for only-testing strategy:
-        {"numberOfShards": 2, "mapping": [{"name": "Shard 1", "strategy": "only-testing", "values": ["SampleXCUITestsClass/testAlert", "SampleXCUITestsClass/testText"]}, {"name": "Shard 2", "strategy": "only-testing", "values": ["SampleXCUITestsClass/testLogin"]}]}
+        `{"numberOfShards": 2, "mapping": [{"name": "Shard 1", "strategy": "only-testing", "values": ["SampleXCUITestsClass/testAlert", "SampleXCUITestsClass/testText"]}, {"name": "Shard 2", "strategy": "only-testing", "values": ["SampleXCUITestsClass/testLogin"]}]}`
 
         Input for skip-testing strategy:
-        {"numberOfShards": 2, "mapping": [{"name": "Shard 1", "strategy": "skip-testing", "values": ["SampleXCUITestsClass/testAlert"]}, {"name": "Shard 2", "strategy": "skip-testing", "values": ["SampleXCUITestsClass/testText"]}]}
+        `{"numberOfShards": 2, "mapping": [{"name": "Shard 1", "strategy": "skip-testing", "values": ["SampleXCUITestsClass/testAlert"]}, {"name": "Shard 2", "strategy": "skip-testing", "values": ["SampleXCUITestsClass/testText"]}]}`
       category: 'Test Configuration'
   - filter_test:
     opts:
@@ -245,11 +245,11 @@ outputs:
   - BROWSERSTACK_BUILD_URL:
     opts:
       title: 'BrowserStack Dashboard url'
-      summary: ''
+      summary: 'BrowserStack Dashboard url for the executed build'
       description: 'BrowserStack Dashboard url for the executed build'
   - BROWSERSTACK_BUILD_STATUS:
     opts:
       title: 'BrowserStack Build Status'
-      summary: Bs build status
+      summary: BrowserStack build status
       description: |
         Status of the executed build. Check values [here:] (https://www.browserstack.com/docs/app-automate/xcui/view-test-results)
