@@ -5,9 +5,11 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io/fs"
 	"log"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"strconv"
 	"strings"
 	"time"
@@ -251,6 +253,23 @@ func printBuildStatus(build_details map[string]interface{}) {
 	table.Render()
 }
 
+// find all the files from the directory which matches the pattern eg: *.md
+func WalkMatch(root, ext string) []string {
+	var files_found []string
+	filepath.WalkDir(root, func(path string, d fs.DirEntry, e error) error {
+		if e != nil {
+			return e
+		}
+		if matched, err := filepath.Match(ext, filepath.Base(path)); err != nil {
+			return err
+		} else if matched {
+			files_found = append(files_found, path)
+		}
+		return nil
+	})
+	return files_found
+}
+
 func locateTestRunnerFileAndZip(test_suite_location string) error {
 	split_test_suite_path := strings.Split(test_suite_location, "/")
 	get_file_name := split_test_suite_path[len(split_test_suite_path)-1]
@@ -261,26 +280,30 @@ func locateTestRunnerFileAndZip(test_suite_location string) error {
 
 	// Checking 2 conditions here
 	// 1. test_suite_location - is this runner app
-	// 2. test_suite_location - if this is a directory, does runner app exists in this directory.
+	// 2. test_suite_location - if this is a directory, does any runner app exists in this directory.
 	if len(check_file_extension) > 0 && check_file_extension[len(check_file_extension)-1] == "app" {
 		test_runner_app_path = test_suite_location
 	} else if strings.Contains(get_file_name, "test_bundle") {
 		// if test_suite_location is a directory instead of the file, then check if runner app exits
-		if _, err := os.Stat(test_suite_location + TEST_RUNNER_RELATIVE_PATH_BITRISE); errors.Is(err, os.ErrNotExist) {
+		files := WalkMatch(test_suite_location+"/Debug-iphoneos/", "*-Runner.app")
+
+		if len(files) < 1 {
 			return errors.New(RUNNER_APP_NOT_FOUND)
-		} else {
-			test_runner_app_path = test_suite_location + TEST_RUNNER_RELATIVE_PATH_BITRISE
 		}
+		test_runner_app_path = files[len(files)-1]
 	} else {
 		return errors.New(RUNNER_APP_NOT_FOUND)
 	}
+
+	file_path := strings.Split(test_runner_app_path, "/")
+	test_runner_file_name := file_path[len(file_path)-1]
 
 	_, err := exec.Command("cp", "-r", test_runner_app_path, ".").Output()
 	if err != nil {
 		return errors.New(fmt.Sprintf(FILE_ZIP_ERROR, err))
 	}
 
-	_, zipping_err := exec.Command("zip", "-r", "-D", TEST_RUNNER_ZIP_FILE_NAME, "Tests iOS-Runner.app").Output()
+	_, zipping_err := exec.Command("zip", "-r", "-D", TEST_RUNNER_ZIP_FILE_NAME, test_runner_file_name).Output()
 	if zipping_err != nil {
 		return errors.New(fmt.Sprintf(FILE_ZIP_ERROR, zipping_err))
 	}
