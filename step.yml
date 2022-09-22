@@ -86,7 +86,7 @@ inputs:
       is_expand: true
       is_required: true
       description: 'Path of the app (.ipa) file'
-  - xcui_test_suite: `$BITRISE_TEST_BUNDLE_PATH`
+  - xcui_test_suite: $BITRISE_TEST_BUNDLE_PATH
     opts:
       title: 'XCUI test suite'
       summary: 'Path of the output bundle file'
