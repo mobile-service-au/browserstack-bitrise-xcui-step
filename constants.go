@@ -9,7 +9,7 @@ const (
 	APP_AUTOMATE_BUILD_STATUS_ENDPOINT = "/app-automate/xcuitest/v2/builds/"
 	APP_AUTOMATE_BUILD_DASHBOARD_URL   = "https://app-automate.browserstack.com/dashboard/v2/builds/"
 	TEST_RUNNER_RELATIVE_PATH_BITRISE  = "/Debug-iphoneos/Tests iOS-Runner.app"
-	TEST_APP_RELATIVE_PATH_BITRISE     = "/Debug-iphoneos/Airwallex.app"
+	BUNDLE_APP_FILE_NAME               = "Airwallex"
 	TEST_RUNNER_ZIP_FILE_NAME          = "test_suite.zip"
 	TEST_APP_ZIP_FILE_NAME             = "Airwallex.ipa"
 

@@ -270,28 +270,29 @@ func WalkMatch(root, ext string) []string {
 	return files_found
 }
 
-func locateAppFileAndIpa(test_suite_location string) error {
-	split_test_suite_path := strings.Split(test_suite_location, "/")
-	get_file_name := split_test_suite_path[len(split_test_suite_path)-1]
+func locateAppFileAndIpa(app_bundle_location string) error {
+	split_app_bundle_path := strings.Split(app_bundle_location, "/")
+	get_file_name := split_app_bundle_path[len(split_app_bundle_path)-1]
 
-	test_runner_app_path := ""
+	app_bundle_path := ""
 
 	check_file_extension := strings.Split(get_file_name, ".")
 
 	// Checking 2 conditions here
-	// 1. test_suite_location - is this runner app
-	// 2. test_suite_location - if this is a directory, does runner app exists in this directory.
+	// 1. app_bundle_location - is this runner app
+	// 2. app_bundle_location - if this is a directory, does any runner app exists in this directory.
 	if len(check_file_extension) > 0 && check_file_extension[len(check_file_extension)-1] == "app" {
-		test_runner_app_path = test_suite_location
+		app_bundle_path = app_bundle_location
 	} else if strings.Contains(get_file_name, "test_bundle") {
-		// if test_suite_location is a directory instead of the file, then check if runner app exits
-		if _, err := os.Stat(test_suite_location + TEST_APP_RELATIVE_PATH_BITRISE); errors.Is(err, os.ErrNotExist) {
-			return errors.New(RUNNER_APP_NOT_FOUND)
-		} else {
-			test_runner_app_path = test_suite_location + TEST_APP_RELATIVE_PATH_BITRISE
+		// if app_bundle_location is a directory instead of the file, then check if runner app exits
+		files := WalkMatch(app_bundle_location+"/Debug-iphoneos/"+BUNDLE_APP_FILE_NAME, ".app")
+
+		if len(files) < 1 {
+			return errors.New(BUNDLE_APP_NOT_FOUND)
 		}
+		app_bundle_path = files[len(files)-1]
 	} else {
-		return errors.New(RUNNER_APP_NOT_FOUND)
+		return errors.New(BUNDLE_APP_NOT_FOUND)
 	}
 
 	_, mkdir_err := exec.Command("mkdir", "Payload").Output()
@@ -299,7 +300,7 @@ func locateAppFileAndIpa(test_suite_location string) error {
 		return errors.New(fmt.Sprintf(APP_DIR_ERROR, mkdir_err))
 	}
 
-	_, err := exec.Command("cp", "-r", test_runner_app_path, "Payload/Application.app").Output()
+	_, err := exec.Command("cp", "-r", app_bundle_path, "Payload/Application.app").Output()
 	if err != nil {
 		return errors.New(fmt.Sprintf(FILE_ZIP_ERROR, err))
 	}
