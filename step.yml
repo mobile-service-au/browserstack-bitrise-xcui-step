@@ -79,13 +79,13 @@ inputs:
       description: 'Access Key of the BrowserStack account'
 
   # IPA's
-  - app_ipa_path: $BITRISE_IPA_PATH
+  - app_bundle_name: $BUNDLE_APP_NAME
     opts:
       title: 'iOS app under test'
-      summary: 'Path to the app (.ipa) file'
+      summary: 'Name of the .app file'
       is_expand: true
       is_required: true
-      description: 'Path of the app (.ipa) file'
+      description: 'Name of the .app file generated when building for testing'
   - xcui_test_suite: $BITRISE_TEST_BUNDLE_PATH
     opts:
       title: 'XCUI test suite'

@@ -270,73 +270,60 @@ func WalkMatch(root, ext string) []string {
 	return files_found
 }
 
-func locateAppFileAndIpa(app_bundle_location string) error {
-	split_app_bundle_path := strings.Split(app_bundle_location, "/")
-	get_file_name := split_app_bundle_path[len(split_app_bundle_path)-1]
+func locateAppFile(location string, file_name string) string {
+	app_extension := "app"
+	file_name_and_extension := file_name + "." + app_extension
 
-	app_bundle_path := ""
+	split_path := strings.Split(location, "/")
+	get_file_name := split_path[len(split_path)-1]
 
+	file_path := ""
+
+	// If location is already a .app file, return that. Else if location is a directory,
+	// check if it contains any .app files with the specified name.
 	check_file_extension := strings.Split(get_file_name, ".")
-
-	// Checking 2 conditions here
-	// 1. app_bundle_location - is this runner app
-	// 2. app_bundle_location - if this is a directory, does any runner app exists in this directory.
-	if len(check_file_extension) > 0 && check_file_extension[len(check_file_extension)-1] == "app" {
-		app_bundle_path = app_bundle_location
+	if len(check_file_extension) > 0 && check_file_extension[len(check_file_extension)-1] == app_extension {
+		file_path = location
 	} else if strings.Contains(get_file_name, "test_bundle") {
-		// if app_bundle_location is a directory instead of the file, then check if runner app exits
-		files := WalkMatch(app_bundle_location+"/Debug-iphoneos/"+BUNDLE_APP_FILE_NAME, ".app")
+		files := WalkMatch(location+"/Debug-iphoneos/", file_name_and_extension)
 
 		if len(files) < 1 {
-			return errors.New(BUNDLE_APP_NOT_FOUND)
+			failf(FILE_NOT_FOUND, file_name_and_extension)
 		}
-		app_bundle_path = files[len(files)-1]
+		file_path = files[len(files)-1]
 	} else {
-		return errors.New(BUNDLE_APP_NOT_FOUND)
+		failf(FILE_NOT_FOUND, file_name_and_extension)
 	}
+
+	return file_path
+}
+
+// Locates .app, moves it into a Payload folder and compresses that folder into an .ipa file.
+func locateAppBundleFileAndIpa(app_bundle_location string, app_bundle_name string) string {
+	app_bundle_path := locateAppFile(app_bundle_location, app_bundle_name)
+	app_zip_name := app_bundle_name + ".ipa"
 
 	_, mkdir_err := exec.Command("mkdir", "Payload").Output()
 	if mkdir_err != nil {
-		return errors.New(fmt.Sprintf(APP_DIR_ERROR, mkdir_err))
+		failf(FILE_DIR_ERROR, mkdir_err)
 	}
 
 	_, err := exec.Command("cp", "-r", app_bundle_path, "Payload/Application.app").Output()
 	if err != nil {
-		return errors.New(fmt.Sprintf(FILE_ZIP_ERROR, err))
+		failf(FILE_COPY_ERROR, err)
 	}
 
-	_, zipping_err := exec.Command("zip", "-r", "-D", TEST_APP_ZIP_FILE_NAME, "Payload").Output()
+	_, zipping_err := exec.Command("zip", "-r", "-D", app_zip_name, "Payload").Output()
 	if zipping_err != nil {
-		return errors.New(fmt.Sprintf(FILE_ZIP_ERROR, zipping_err))
+		failf(FILE_ZIP_ERROR, zipping_err)
 	}
 
-	return nil
+	return app_zip_name
 }
 
+// Locates a runner .app and compresses it into a .zip file.
 func locateTestRunnerFileAndZip(test_suite_location string) error {
-	split_test_suite_path := strings.Split(test_suite_location, "/")
-	get_file_name := split_test_suite_path[len(split_test_suite_path)-1]
-
-	test_runner_app_path := ""
-
-	check_file_extension := strings.Split(get_file_name, ".")
-
-	// Checking 2 conditions here
-	// 1. test_suite_location - is this runner app
-	// 2. test_suite_location - if this is a directory, does any runner app exists in this directory.
-	if len(check_file_extension) > 0 && check_file_extension[len(check_file_extension)-1] == "app" {
-		test_runner_app_path = test_suite_location
-	} else if strings.Contains(get_file_name, "test_bundle") {
-		// if test_suite_location is a directory instead of the file, then check if runner app exits
-		files := WalkMatch(test_suite_location+"/Debug-iphoneos/", "*-Runner.app")
-
-		if len(files) < 1 {
-			return errors.New(RUNNER_APP_NOT_FOUND)
-		}
-		test_runner_app_path = files[len(files)-1]
-	} else {
-		return errors.New(RUNNER_APP_NOT_FOUND)
-	}
+	test_runner_app_path := locateAppFile(test_suite_location, "*-Runner")
 
 	file_path := strings.Split(test_runner_app_path, "/")
 	test_runner_file_name := file_path[len(file_path)-1]

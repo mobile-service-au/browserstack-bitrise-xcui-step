@@ -17,7 +17,7 @@ func main() {
 
 	username := os.Getenv("browserstack_username")
 	access_key := os.Getenv("browserstack_accesskey")
-	// ios_app := os.Getenv("app_ipa_path")
+	app_bundle_name := os.Getenv("app_bundle_name")
 	test_suite_path := os.Getenv("xcui_test_suite")
 
 	if username == "" || access_key == "" {
@@ -32,18 +32,18 @@ func main() {
 		failf(RUNNER_APP_NOT_FOUND)
 	}
 
-	find_and_ipa_file_err := locateAppFileAndIpa(test_suite_path)
+	ipa_file_name := locateAppBundleFileAndIpa(test_suite_path, app_bundle_name)
 	find_and_zip_file_err := locateTestRunnerFileAndZip(test_suite_path)
 
-	if find_and_ipa_file_err != nil {
-		failf(find_and_ipa_file_err.Error())
+	if ipa_file_name == "" {
+		failf(IPA_NOT_FOUND)
 	}
 
 	if find_and_zip_file_err != nil {
 		failf(find_and_zip_file_err.Error())
 	}
 
-	test_app_app := TEST_APP_ZIP_FILE_NAME
+	test_app_app := ipa_file_name
 	test_runner_app := TEST_RUNNER_ZIP_FILE_NAME
 
 	log.Print("Uploading app on BrowserStack App Automate")
