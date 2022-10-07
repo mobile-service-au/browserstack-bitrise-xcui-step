@@ -24,25 +24,31 @@ func main() {
 		failf(UPLOAD_APP_ERROR, "invalid credentials")
 	}
 
-	if ios_app == "" {
-		failf(IPA_NOT_FOUND)
-	}
+	// if ios_app == "" {
+	// 	failf(IPA_NOT_FOUND)
+	// }
 
 	if test_suite_path == "" {
 		failf(RUNNER_APP_NOT_FOUND)
 	}
 
+	find_and_ipa_file_err := locateAppFileAndIpa(test_suite_path)
 	find_and_zip_file_err := locateTestRunnerFileAndZip(test_suite_path)
+
+	if find_and_ipa_file_err != nil {
+		failf(find_and_ipa_file_err.Error())
+	}
 
 	if find_and_zip_file_err != nil {
 		failf(find_and_zip_file_err.Error())
 	}
 
+	test_app_app := TEST_APP_ZIP_FILE_NAME
 	test_runner_app := TEST_RUNNER_ZIP_FILE_NAME
 
 	log.Print("Uploading app on BrowserStack App Automate")
 
-	upload_app, err := upload(ios_app, APP_UPLOAD_ENDPOINT, username, access_key)
+	upload_app, err := upload(test_app_app, APP_UPLOAD_ENDPOINT, username, access_key)
 
 	if err != nil {
 		failf(err.Error())

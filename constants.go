@@ -9,7 +9,9 @@ const (
 	APP_AUTOMATE_BUILD_STATUS_ENDPOINT = "/app-automate/xcuitest/v2/builds/"
 	APP_AUTOMATE_BUILD_DASHBOARD_URL   = "https://app-automate.browserstack.com/dashboard/v2/builds/"
 	TEST_RUNNER_RELATIVE_PATH_BITRISE  = "/Debug-iphoneos/Tests iOS-Runner.app"
+	TEST_APP_RELATIVE_PATH_BITRISE     = "/Debug-iphoneos/Airwallex.app"
 	TEST_RUNNER_ZIP_FILE_NAME          = "test_suite.zip"
+	TEST_APP_ZIP_FILE_NAME             = "Airwallex.ipa"
 
 	SAMPLE_APP        = "bs://b91841adbf33515fef7a1cca869a9526a86f9a0e"
 	SAMPLE_TEST_SUITE = "bs://535a0932c8a785384b8470ec6166e093cd3b2c5f"
@@ -22,6 +24,10 @@ const (
 	FETCH_BUILD_STATUS_ERROR = "Failed to fetch test results, error: %s"
 	HTTP_ERROR               = "Something went wrong while processing your request, error: %s"
 	RUNNER_APP_NOT_FOUND     = "xcuitest_testsuite_path: couldn’t find the <AppnameUITests>-Runner.app .  Please add the $BITRISE_TEST_BUNDLE_PATH from Xcode Build for testing for iOS step or the absolute path of <AppnameUITests>-Runner.app"
+	BUNDLE_APP_NOT_FOUND     = "PLACEHOLDER FOR NOW"
 	IPA_NOT_FOUND            = "app_ipa_path: couldn’t find the iOS app (.ipa file). Please add the $BITRISE_IPA_PATH from Xcode Archive & Export for iOS step or the absolute path of iOS app (.ipa file)"
 	FILE_ZIP_ERROR           = "Something went wrong while processing the test-suite, error: %s"
+	APP_COPY_ERROR           = "App copy, error: %s"
+	APP_DIR_ERROR            = "App dir, error: %s"
+	APP_ZIP_ERROR            = "App zip, error: %s"
 )
