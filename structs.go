@@ -9,7 +9,7 @@ type TestMapping struct {
 type TestSharding struct {
 	NumberOfShards      int           `json:"numberOfShards,omitempty"`
 	Mapping             []TestMapping `json:"mapping,omitempty"`
-	AutoStrategyDevices []string      `json:"devices,omitempty"`
+	AutoStrategyDevices string        `json:"deviceSelection,omitempty"`
 }
 
 type BrowserStackPayload struct {
