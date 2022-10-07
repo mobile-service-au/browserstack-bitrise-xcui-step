@@ -17,7 +17,7 @@ func main() {
 
 	username := os.Getenv("browserstack_username")
 	access_key := os.Getenv("browserstack_accesskey")
-	ios_app := os.Getenv("app_ipa_path")
+	// ios_app := os.Getenv("app_ipa_path")
 	test_suite_path := os.Getenv("xcui_test_suite")
 
 	if username == "" || access_key == "" {
