@@ -18,6 +18,7 @@ func main() {
 	username := os.Getenv("browserstack_username")
 	access_key := os.Getenv("browserstack_accesskey")
 	app_bundle_name := os.Getenv("app_bundle_name")
+	app_custom_id := os.Getenv("app_custom_id")
 	test_suite_path := os.Getenv("xcui_test_suite")
 
 	if username == "" || access_key == "" {
@@ -48,7 +49,7 @@ func main() {
 
 	log.Print("Uploading app on BrowserStack App Automate")
 
-	upload_app, err := upload(test_app_app, APP_UPLOAD_ENDPOINT, username, access_key)
+	upload_app, err := upload(test_app_app, APP_UPLOAD_ENDPOINT, &app_custom_id, username, access_key)
 
 	if err != nil {
 		failf(err.Error())
@@ -66,7 +67,7 @@ func main() {
 
 	log.Print("Uploading test suite on BrowserStack App Automate")
 
-	upload_test_suite, err := upload(test_runner_app, TEST_SUITE_UPLOAD_ENDPOINT, username, access_key)
+	upload_test_suite, err := upload(test_runner_app, TEST_SUITE_UPLOAD_ENDPOINT, nil, username, access_key)
 
 	if err != nil {
 		failf(err.Error())

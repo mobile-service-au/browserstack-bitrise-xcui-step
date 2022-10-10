@@ -18,6 +18,7 @@ const (
 	UPLOAD_APP_ERROR         = "Failed to upload app on BrowserStack, error : %s"
 	FILE_NOT_AVAILABLE_ERROR = "Failed to upload test suite on BrowserStack, error: file not available"
 	INVALID_FILE_TYPE_ERROR  = "Failed to upload test suite on BrowserStack, error: invalid file type"
+	APP_CUSTOM_ID_ERROR      = "Failed to attach app custom ID, error: %s"
 	BUILD_FAILED_ERROR       = "Failed to execute build on BrowserStack, error: %s"
 	FETCH_BUILD_STATUS_ERROR = "Failed to fetch test results, error: %s"
 	HTTP_ERROR               = "Something went wrong while processing your request, error: %s"

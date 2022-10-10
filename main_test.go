@@ -36,7 +36,7 @@ func TestBuild(t *testing.T) {
 func TestUpload(t *testing.T) {
 	t.Log("It should throw file not found error with empty path")
 	{
-		build, err := upload("", APP_UPLOAD_ENDPOINT, "username", "password")
+		build, err := upload("", APP_UPLOAD_ENDPOINT, nil, "username", "password")
 		t.Log(build, err)
 		require.Equal(t, "", build)
 		require.Error(t, err)
@@ -44,7 +44,7 @@ func TestUpload(t *testing.T) {
 
 	t.Log("It should throw file not found error with invalid path")
 	{
-		build, err := upload("invalidpath", APP_UPLOAD_ENDPOINT, "username", "password")
+		build, err := upload("invalidpath", APP_UPLOAD_ENDPOINT, nil, "username", "password")
 		t.Log(build, err)
 		require.Equal(t, "", build)
 		require.Error(t, err)

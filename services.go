@@ -54,7 +54,7 @@ func build(app_url string, test_suite_url string, username string, access_key st
 }
 
 // this function uploads both app and test suite
-func upload(app_path string, endpoint string, username string, access_key string) (string, error) {
+func upload(app_path string, endpoint string, custom_id *string, username string, access_key string) (string, error) {
 	if app_path == "" {
 		return "", errors.New(FILE_NOT_AVAILABLE_ERROR)
 	}
@@ -82,6 +82,14 @@ func upload(app_path string, endpoint string, username string, access_key string
 
 	if fileErr != nil {
 		return "", errors.New(FILE_NOT_AVAILABLE_ERROR)
+	}
+
+	if custom_id != nil {
+		fileErr := multipart_writer.WriteField("custom_id", *custom_id)
+
+		if fileErr != nil {
+			return "", errors.New(APP_CUSTOM_ID_ERROR)
+		}
 	}
 
 	err := multipart_writer.Close()
