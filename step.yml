@@ -88,11 +88,18 @@ inputs:
       description: 'Name of the .app file generated when building for testing'
   - app_custom_id:
     opts:
-      title: 'Custom ID'
+      title: 'App Custom ID'
       summary: 'App Custom ID in BrowserStack'
       is_expand: true
       is_required: false
       description: 'App Custom ID in BrowserStack'
+  - test_suite_custom_id:
+    opts:
+      title: 'Test Suite Custom ID'
+      summary: 'Test Suite Custom ID in BrowserStack'
+      is_expand: true
+      is_required: false
+      description: 'Test Suite Custom ID in BrowserStack'
   - xcui_test_suite: $BITRISE_TEST_BUNDLE_PATH
     opts:
       title: 'XCUI test suite'
