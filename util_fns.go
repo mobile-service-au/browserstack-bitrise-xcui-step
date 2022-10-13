@@ -279,7 +279,7 @@ func locateAppFile(location string, file_name string) string {
 
 	file_path := ""
 
-	// If location is already a .app file, return that. Else if location is a directory,
+	// If location is already .app file, return that. Else if location is directory,
 	// check if it contains any .app files with the specified name.
 	check_file_extension := strings.Split(get_file_name, ".")
 	if len(check_file_extension) > 0 && check_file_extension[len(check_file_extension)-1] == app_extension {
@@ -298,7 +298,7 @@ func locateAppFile(location string, file_name string) string {
 	return file_path
 }
 
-// Locates .app, moves it into a Payload folder and compresses that folder into an .ipa file.
+// Locates .app, moves it into a Payload folder and compresses that folder into .ipa.
 func locateAppBundleFileAndIpa(app_bundle_location string, app_bundle_name string) string {
 	app_bundle_path := locateAppFile(app_bundle_location, app_bundle_name)
 	app_zip_name := app_bundle_name + ".ipa"
@@ -321,7 +321,7 @@ func locateAppBundleFileAndIpa(app_bundle_location string, app_bundle_name strin
 	return app_zip_name
 }
 
-// Locates a runner .app and compresses it into a .zip file.
+// Locates runner .app and compresses it into .zip.
 func locateTestRunnerFileAndZip(test_suite_location string) error {
 	test_runner_app_path := locateAppFile(test_suite_location, "*-Runner")
 
