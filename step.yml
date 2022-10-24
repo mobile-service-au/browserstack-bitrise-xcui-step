@@ -12,7 +12,7 @@ title: |-
 summary: |
   Run your XCUITest tests on BrowserStack App Automate
 description: |
-  Run your XCUITest tests on BrowserStack App Automate. This step collects the built IPA from `$BITRISE_IPA_PATH`  and test suite from `$BITRISE_BUNDLE_PATH` Environment Variables
+  Run your XCUITest tests on BrowserStack App Automate. This step collects the built app and test suite from `$BITRISE_BUNDLE_PATH` environment variable
 website: https://github.com/browserstack/browserstack-bitrise-xcui-step
 source_code_url: https://github.com/browserstack/browserstack-bitrise-xcui-step
 support_url: https://github.com/browserstack/browserstack-bitrise-xcui-step/issues
@@ -78,7 +78,7 @@ inputs:
       is_sensitive: true
       description: 'Access Key of the BrowserStack account'
 
-  # IPA's
+  # App and test suite
   - app_bundle_name: $BUNDLE_APP_NAME
     opts:
       title: 'iOS app under test'
@@ -86,20 +86,6 @@ inputs:
       is_expand: true
       is_required: true
       description: 'Name of the .app file generated when building for testing'
-  - app_custom_id:
-    opts:
-      title: 'App Custom ID'
-      summary: 'App Custom ID in BrowserStack'
-      is_expand: true
-      is_required: false
-      description: 'App Custom ID in BrowserStack'
-  - test_suite_custom_id:
-    opts:
-      title: 'Test Suite Custom ID'
-      summary: 'Test Suite Custom ID in BrowserStack'
-      is_expand: true
-      is_required: false
-      description: 'Test Suite Custom ID in BrowserStack'
   - xcui_test_suite: $BITRISE_TEST_BUNDLE_PATH
     opts:
       title: 'XCUI test suite'
@@ -124,6 +110,24 @@ inputs:
          [View supported device-OS combinations](https://www.browserstack.com/list-of-browsers-and-platforms/app_automate)
       is_expand: true
       is_required: true
+
+  # Custom IDs
+  - app_custom_id:
+    opts:
+      title: 'App Custom ID'
+      summary: 'App Custom ID in BrowserStack'
+      is_expand: true
+      is_required: false
+      description: 'App Custom ID in BrowserStack'
+      category: 'Customs IDs'
+  - test_suite_custom_id:
+    opts:
+      title: 'Test Suite Custom ID'
+      summary: 'Test Suite Custom ID in BrowserStack'
+      is_expand: true
+      is_required: false
+      description: 'Test Suite Custom ID in BrowserStack'
+      category: 'Customs IDs'
 
   # Debug logs inputs
   - instrumentation_logs: "true"

@@ -22,7 +22,7 @@ const (
 	BUILD_FAILED_ERROR       = "Failed to execute build on BrowserStack, error: %s"
 	FETCH_BUILD_STATUS_ERROR = "Failed to fetch test results, error: %s"
 	HTTP_ERROR               = "Something went wrong while processing your request, error: %s"
-	RUNNER_APP_NOT_FOUND     = "xcuitest_testsuite_path: couldn’t find the <AppnameUITests>-Runner.app .  Please add the $BITRISE_TEST_BUNDLE_PATH from Xcode Build for testing for iOS step or the absolute path of <AppnameUITests>-Runner.app"
+	RUNNER_APP_NOT_FOUND     = "xcuitest_testsuite_path: couldn’t find the <AppnameUITests>-Runner.app. Please add the $BITRISE_TEST_BUNDLE_PATH from Xcode Build for testing for iOS step or the absolute path of <AppnameUITests>-Runner.app"
 	IPA_NOT_FOUND            = "Failed to generate an .ipa file. Please verify the value in $BUNDLE_APP_NAME"
 	FILE_NOT_FOUND           = "File not found: %s"
 	FILE_COPY_ERROR          = "Failed to copy file, error: %s"

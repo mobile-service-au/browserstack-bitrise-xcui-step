@@ -9,7 +9,7 @@ Add this step directly to your workflow in the [Bitrise Workflow Editor](https:/
 <details>
 <summary>Description</summary>
 
-Run your XCUI tests on BrowserStack App Automate. This step collects the built IPA from `$BITRISE_IPA_PATH` and the output bundle file from `$BITRISE_TEST_BUNDLE_PATH` environment variables.
+Run your XCUI tests on BrowserStack App Automate. This step collects *both the built app and test suite* from the `$BITRISE_BUNDLE_PATH` environment variable, generates an IPA file, uploads and starts a test build.
 
 ## Configure the Step
 
@@ -17,17 +17,21 @@ Complete the following steps to configure BrowserStack's XCUI step in Bitrise:
 
 1. Open the Workflow you want to use in the Workflow Editor.
 ​
-2. Add the [Xcode Archive & Export for iOS](https://www.bitrise.io/integrations/steps/xcode-archive) and [Xcode Build for testing for iOS](https://www.bitrise.io/integrations/steps/xcode-build-for-test) steps to your workflow and configure them.
+2. Add the [Xcode Build for testing for iOS](https://www.bitrise.io/integrations/steps/xcode-build-for-test) step to your workflow and configure it.
 ​
-3. Add the **BrowserStack App Automate - XCUI** step below the **Xcode Archive & Export for iOS** and **Xcode Build for testing for iOS** steps.
+3. Add the **BrowserStack App Automate - XCUI** step below the **Xcode Build for testing for iOS** steps.
 ​
 4. Add your BrowserStack Username and Access Key in the **Authentication** step input.
+
+5. Provide the built application name in the **iOS app under test** input. This is typically the product name in your project.
 ​
-5. For the **iOS app under test** input, the **BITRISE_IPA_PATH** output variable from the **Xcode Archive & Export for iOS** step exports the IPA file. Add `$BITRISE_IPA_PATH` to the **iOS app under test** input.<br /><br /> For the **XCUI test suite** input, the **BITRISE_TEST_BUNDLE_PATH** output variable from the **Xcode Build for testing for iOS step** exports the test suite. Add `$BITRISE_TEST_BUNDLE_PATH` to the **iOS app under test** input.<br /><br /> If you are not using  **Xcode Archive & Export for iOS** and **Xcode Build for testing for iOS** steps, ensure that the **iOS app under test** input points to the path of your app (`.ipa` file). Also, ensure that the **XCUI test suite** input points to the test suite runner file. In the case of the runner app, it should be in the `<any_path>/Debug-iphoneos` directory if you are providing an absolute path.<br />
+6. For the **XCUI test suite** input, the **BITRISE_TEST_BUNDLE_PATH** output variable from the **Xcode Build for testing for iOS step** indicates where the app bundle and test suite are located. Add `$BITRISE_TEST_BUNDLE_PATH` to the **iOS app under test** input.<br /><br /> If you are not using the **Xcode Build for testing for iOS** step, ensure that the **XCUI test suite** input points to a directory that contains both the test suite runner file and the app bundle (not .ipa).
 ​
-6. Add one or more devices in the **Devices** step input.
+7. Add one or more devices in the **Devices** step input.
 ​
-7. Configure additional step inputs like **Debug logs** and **Test Configurations** and start your build.
+8. Optionally provide custom IDs for the app and test suite in **Custom IDs** and configure additional step inputs like **Debug logs** and **Test Configurations**.
+
+9. Start your build.
 
 </details>
 
@@ -38,9 +42,11 @@ Complete the following steps to configure BrowserStack's XCUI step in Bitrise:
 
 | Key | Description | Flags | Default |
 | --- | --- | --- | --- |
-| `iOS app` | Set the path of the app (.ipa) file. | Required | N/A |
+| `iOS app under test` | Set the name of the .app file. | Required | N/A |
 | `XCUI test suite` | Set the path of the output bundle file. | Required | N/A |
 | `Devices` | Provide one or more device-OS combination in a new line. For example: <br /> `iPhone 11-13` <br />`iPhone XS-15` | Required | N/A |
+| `App Custom ID` | Custom identifier for the app under testing. | Optional | N/A |
+| `Test Suite Custom ID` | Custom identifier for the test suite to be run. | Optional | N/A |
 | `Instrumentation logs` | Generate instrumentation logs of the test session  | Optional | `true` |
 | `Network logs` | Generate network logs of your test sessions to capture network traffic, latency, etc. | Optional | `false` |
 | `Device Logs` | Generate device logs | Optional | `false` |
