@@ -42,7 +42,7 @@ Complete the following steps to configure BrowserStack's XCUI step in Bitrise:
 
 | Key | Description | Flags | Default |
 | --- | --- | --- | --- |
-| `iOS app under test` | Set the name of the .app file. | Required | N/A |
+| `iOS app under test` | Set the name of the .app file (same as `PRODUCT_NAME` under Packaging in Xcode Build Settings). | Required | N/A |
 | `XCUI test suite` | Set the path of the output bundle file. | Required | N/A |
 | `Devices` | Provide one or more device-OS combination in a new line. For example: <br /> `iPhone 11-13` <br />`iPhone XS-15` | Required | N/A |
 | `App Custom ID` | Custom identifier for the app under testing. | Optional | N/A |
